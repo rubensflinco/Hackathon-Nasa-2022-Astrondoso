@@ -3,7 +3,7 @@ import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
 import Menu from '../../../../models/menu';
 import replaceAll from '../../../../functions/replaceAll';
-import absoluteUrl from 'next-absolute-url'
+import absoluteUrl from 'next-absolute-url';
 
 
 export default async function apiPublicaMenuObter(req, res) {

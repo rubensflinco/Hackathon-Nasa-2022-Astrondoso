@@ -6,7 +6,7 @@ import Perguntas from '../../../../models/perguntas';
 import replaceAll from '../../../../functions/replaceAll';
 
 export default async function apiPublicaPerguntasCriar(req, res) {
-let method = 'POST'
+  let method = 'POST'
 
   if (res !== null) {
     await NextCors(req, res, {
