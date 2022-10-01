@@ -35,6 +35,9 @@ export default async function apiPublicaUsuarioEditar(req, res) {
       }
 
     } catch (error) {
+      if (String(error).includes(`email_1 dup key`)) {
+        return apiResponse(res, 400, "ERRO", "Endereço de email já cadastrado.", String(error));
+      }
       if (String(error).includes(`ValidationError:`)) {
         return apiResponse(res, 400, "ERRO", replaceAll((String(error).replace("ValidationError: ", "")), ":", ""), String(error));
       }
