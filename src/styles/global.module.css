@@ -41,3 +41,7 @@
     letter-spacing: 0.045em;
     color: #FFFFFF;
 }
+
+.personagem{
+    cursor: pointer;
+}
