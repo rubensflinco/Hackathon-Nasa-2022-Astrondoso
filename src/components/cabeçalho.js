@@ -13,7 +13,7 @@ export default function Cabecalho(props) {
                     <p class="block w-full text-right text-xl text-white ">100pts</p>
                 </div>
                 <div>
-                    <img class="block" src="/img/astrocat.png" />
+                    <img class="block" src="/img/avatar/astrocat.png" />
                 </div>
             </div>
             <p class="block text-[1.04rem] text-white ">{props?.tituloPagina}</p>

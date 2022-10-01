@@ -14,23 +14,26 @@ const esquema = new mongoose.Schema({
   },
   subTitulo: {
     type: String,
+    default: '',
+  },
+  idGaleria: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Galeria',
     required: 'é obrigatório!',
   },
-  secoes: [
-    {
-      titulo: {
-        type: String,
-        required: 'é obrigatório!',
-      },
-      conteudo: {
-        type: String,
-        required: 'é obrigatório!',
-      }
+  opcoes: {
+    titulo: {
+      type: String,
+      required: 'é obrigatório!',
+    },
+    correta: {
+      type: Boolean,
+      default: false,
     }
-  ],
+  },
 },
   {
     timestamps: true
   })
 
-module.exports = mongoose.models.Artigo || mongoose.model('Artigo', esquema)
+module.exports = mongoose.models.Perguntas || mongoose.model('Perguntas', esquema)
