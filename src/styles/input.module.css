@@ -1,0 +1,19 @@
+.inputPrincipal {
+    background: linear-gradient(260.22deg, rgba(209, 209, 219, 0.1) 1.09%, rgba(209, 209, 219, 0.1) 66.51%, rgba(209, 209, 219, 0.042) 98.47%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(6.92139px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 13.8428px;
+}
+
+.inputTitulo {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.045em;
+    color: #FFFFFF;
+
+}

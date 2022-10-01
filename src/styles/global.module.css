@@ -42,6 +42,13 @@
     color: #FFFFFF;
 }
 
-.personagem{
+.personagem {
     cursor: pointer;
+}
+
+.inputPrincipal {
+    background: linear-gradient(260.22deg, rgba(209, 209, 219, 0.1) 1.09%, rgba(209, 209, 219, 0.1) 66.51%, rgba(209, 209, 219, 0.042) 98.47%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(6.92139px);
+    border-radius: 13.8428px;
 }
