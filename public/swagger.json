@@ -1,0 +1,48 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Next Swagger API Example",
+    "version": "1.0"
+  },
+  "paths": {
+    "security": {
+      "0": {
+        "BasicAuth": []
+      }
+    },
+    "/api/privada/usuario/criar": {
+      "post": {
+        "description": "Criação de uma nova conta de usuario no sistema",
+        "summary": "test",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "test": {
+                    "type": "string",
+                    "example": "aa"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": []
+}
