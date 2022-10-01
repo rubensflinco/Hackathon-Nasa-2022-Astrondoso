@@ -19,7 +19,6 @@ const esquema = new mongoose.Schema({
   idGaleria: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Galeria',
-    default: '',
   },
   opcoes: [
     {
