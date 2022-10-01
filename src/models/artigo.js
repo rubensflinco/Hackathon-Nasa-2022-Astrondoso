@@ -12,20 +12,22 @@ const esquema = new mongoose.Schema({
     type: String,
     required: 'é obrigatório!',
   },
-  subTituo: {
+  subTitulo: {
     type: String,
     required: 'é obrigatório!',
   },
-  secoes: {
-    titulo: {
-      type: String,
-      required: 'é obrigatório!',
-    },
-    conteudo: {
-      type: String,
-      required: 'é obrigatório!',
+  secoes: [
+    {
+      titulo: {
+        type: String,
+        required: 'é obrigatório!',
+      },
+      conteudo: {
+        type: String,
+        required: 'é obrigatório!',
+      }
     }
-  },
+  ],
 },
   {
     timestamps: true
