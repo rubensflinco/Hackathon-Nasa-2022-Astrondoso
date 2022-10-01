@@ -5,7 +5,10 @@ const esquema = new mongoose.Schema({
     type: String,
     lowercase: true,
     default: 'baixo',
-    enum: ['cima', 'meio', 'baixo']
+    enum: {
+      values: ['cima', 'meio', 'baixo'],
+      message: 'inválida!'
+    }
   },
   titulo: {
     type: String,
@@ -27,7 +30,10 @@ const esquema = new mongoose.Schema({
     target: {
       type: String,
       default: '_self',
-      enum: ['_blank', '_self', '_parent', '_top']
+      enum: {
+        values: ['_blank', '_self', '_parent', '_top'],
+        message: 'inválida!'
+      }
     }
   },
 },
