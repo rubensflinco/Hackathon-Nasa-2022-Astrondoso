@@ -4,6 +4,7 @@ import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
 import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
+import jwt from 'jsonwebtoken';
 
 export default async function apiPublicaUsuarioCriar(req, res) {
   let method = 'POST'
@@ -34,6 +35,10 @@ export default async function apiPublicaUsuarioCriar(req, res) {
 
 
       let resBancoDeDados = await Usuario.create(dados);
+      let dadosToken = { id: String(resBancoDeDados?._id) }
+      let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
+      resBancoDeDados.token = token;
+
       return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
 
 

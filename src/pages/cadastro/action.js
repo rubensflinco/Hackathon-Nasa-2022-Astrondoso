@@ -10,9 +10,6 @@ import convertWwwFormInJson from '../../functions/convertWwwFormInJson';
 
 
 
-
-
-
 // Função executada no servidor antes da pagina ir para o navegador
 export async function getServerSideProps(context) {
     let req = context.req;
@@ -21,15 +18,23 @@ export async function getServerSideProps(context) {
         try {
             let body = await convertWwwFormInJson(req);
             let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/criar`, {}, { dados: body });
-            await setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
-            return { props: { token_sessao_usuario: respostaApi.token } }
+            
+            setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
+            
+            return {
+                props: { token_sessao_usuario: respostaApi.token }
+            }
 
         } catch (error) {
-            return { props: { erro: String(error) } }
+            return {
+                props: { erro: String(error) }
+            }
         }
 
     } else {
-        return { redirect: { destination: '/cadastro', permanent: false } }
+        return {
+            redirect: { destination: '/cadastro', permanent: false }
+        }
     }
 
 }
@@ -42,7 +47,7 @@ export default function PagesCadastroNome(props) {
         (async () => {
 
             if (props.token_sessao_usuario) {
-                await setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
+                setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
                 Router.push("/cadastrar/avatar");
             }
 
