@@ -1,12 +1,13 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
+import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Artigo from '../../../../models/artigo';
+import Galeria from '../../../../models/galeria';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaArtigoObter(req, res) {
-  let method = 'GET'
-  
+export default async function apiPublicaGaleriaCriar(req, res) {
+let method = 'POST'
+
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -15,30 +16,25 @@ export default async function apiPublicaArtigoObter(req, res) {
     });
   }
 
+
+
   if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
-      let parametrosBusca = {};
       await databaseConnect();
 
 
 
 
-      if(condicoes?.slug){
-        parametrosBusca.slug = condicoes?.slug;
+      if (!dados.slug) {
+        dados.slug = criarSlug(dados.titulo);
       }
-      if(condicoes?._id){
-        parametrosBusca._id = condicoes?._id;
-      }
-      if (!condicoes?.limite) {
-        condicoes.limite = 1;
-      }
-      
 
-      let resBancoDeDados = await Artigo.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
+
+      let resBancoDeDados = await Galeria.create(dados);
+      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
 
 
 

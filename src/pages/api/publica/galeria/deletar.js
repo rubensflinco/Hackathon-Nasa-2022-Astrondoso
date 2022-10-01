@@ -1,11 +1,11 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Artigo from '../../../../models/artigo';
+import Galeria from '../../../../models/galeria';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaArtigoObter(req, res) {
-  let method = 'GET'
+export default async function apiPublicaGaleriaDeletar(req, res) {
+  let method = 'DELETE'
   
   if (res !== null) {
     await NextCors(req, res, {
@@ -20,24 +20,10 @@ export default async function apiPublicaArtigoObter(req, res) {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
-      let parametrosBusca = {};
       await databaseConnect();
 
 
-
-
-      if(condicoes?.slug){
-        parametrosBusca.slug = condicoes?.slug;
-      }
-      if(condicoes?._id){
-        parametrosBusca._id = condicoes?._id;
-      }
-      if (!condicoes?.limite) {
-        condicoes.limite = 1;
-      }
-      
-
-      let resBancoDeDados = await Artigo.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      let resBancoDeDados = await Galeria.remove({_id: condicoes._id});
       return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
