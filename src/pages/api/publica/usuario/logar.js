@@ -1,5 +1,4 @@
 import NextCors from 'nextjs-cors';
-import bcryptjs from 'bcryptjs'
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
 import validaTokens from "../../../../functions/validaTokens";
@@ -38,7 +37,7 @@ export default async function apiPublicaUsuarioLogar(req, res) {
 
       let dadosToken = { id: String(resBancoDeDados?._id) }
       let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
-      
+
       return apiResponse(res, 400, "ERRO", "Dados obtidos token do usuario na resposta.", { tokenUsuario: token });
 
 

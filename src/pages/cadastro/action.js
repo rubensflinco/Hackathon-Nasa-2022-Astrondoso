@@ -18,6 +18,7 @@ export async function getServerSideProps(context) {
         try {
             let body = await convertWwwFormInJson(req);
             let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/criar`, {}, { dados: body });
+            console.log("🚀 ~ file: action.js ~ line 21 ~ getServerSideProps ~ respostaApi", respostaApi)
             
             setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
             

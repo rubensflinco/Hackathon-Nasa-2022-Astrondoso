@@ -37,9 +37,8 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       let resBancoDeDados = await Usuario.create(dados);
       let dadosToken = { id: String(resBancoDeDados?._id) }
       let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
-      resBancoDeDados.token = token;
 
-      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
+      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", {token, ...resBancoDeDados});
 
 
 
