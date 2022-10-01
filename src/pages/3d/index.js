@@ -15,7 +15,7 @@ import TituloPagina from '../../components/titulo-pagina';
 // Função executada quando no servidor sempre que tem uma nova requisição
 export async function getServerSideProps(context) {
     try {
-        
+
         // context.params.slug;
 
 
@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesArtigo(props) {
+export default function Pages3d(props) {
 
 
     React.useEffect(() => {
@@ -51,7 +51,7 @@ export default function PagesArtigo(props) {
 
     return (<>
         <TituloPagina
-            nome="Artigos"
+            nome="James Webb 3D"
         />
 
         {(props.carregando) ? (<>
@@ -62,28 +62,14 @@ export default function PagesArtigo(props) {
             </>) : (<>
                 <div class="flex flex-col gap-[0.94rem] justify-start items-center max-w-[24.38rem] mx-auto p-5">
 
-                    <Cabecalho tituloPagina="Sobre Webb" icone="fa-solid fa-angle-left fa-1x text-white">
+                    <Cabecalho tituloPagina="James Webb 3D" icone="fa-solid fa-angle-left fa-1x text-white">
 
                     </Cabecalho>
 
 
                 </div>
 
-                
 
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-
-
-            
 
             </>)
             }

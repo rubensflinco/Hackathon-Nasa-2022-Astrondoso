@@ -2,6 +2,7 @@ import * as React from 'react';
 import BtnPrincipal from '../../components/btnPrincipal';
 import Cabecalho from '../../components/cabeçalho';
 import CardAccordion from '../../components/cardAccordion';
+import CardImagens from '../../components/cardImagens';
 import CardPrincipal from '../../components/cardPrincipal';
 import CardSecundario from '../../components/cardSecundario';
 import InputPrincipal from '../../components/input';
@@ -15,7 +16,7 @@ import TituloPagina from '../../components/titulo-pagina';
 // Função executada quando no servidor sempre que tem uma nova requisição
 export async function getServerSideProps(context) {
     try {
-        
+
         // context.params.slug;
 
 
@@ -37,7 +38,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesArtigo(props) {
+export default function GaleriaImagens(props) {
 
 
     React.useEffect(() => {
@@ -51,7 +52,7 @@ export default function PagesArtigo(props) {
 
     return (<>
         <TituloPagina
-            nome="Artigos"
+            nome="Galeria de Imagens"
         />
 
         {(props.carregando) ? (<>
@@ -62,28 +63,16 @@ export default function PagesArtigo(props) {
             </>) : (<>
                 <div class="flex flex-col gap-[0.94rem] justify-start items-center max-w-[24.38rem] mx-auto p-5">
 
-                    <Cabecalho tituloPagina="Sobre Webb" icone="fa-solid fa-angle-left fa-1x text-white">
+                    <Cabecalho tituloPagina="Galeria de Imagens" icone="fa-solid fa-angle-left fa-1x text-white">
 
                     </Cabecalho>
 
-
                 </div>
 
-                
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-
+                <CardImagens titulo="Foto" descricao="lorem ipisuon" img="/img/foto-james-webb.png"/>
 
             
+
 
             </>)
             }
