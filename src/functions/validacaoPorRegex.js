@@ -1,6 +1,6 @@
 export default function validacaoPorRegex(valor, regex) {
     switch (regex) {
-        case "dataNascimento":
+        case "dataBrasileira":
             regex = /([0-9]{2})[\/]([0-9]{2})[\/]([0-9]*)/g;
             break;
 
