@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
 
 
   return (<>
-    <div>
+    <div className={cssGlobal.fundoEscuro}>
       <div className={cssGlobal.espacamentoMenuCima}></div>
       <Component {...pageProps} carregando={carregando} cssGlobal={cssGlobal} />
       <div className={cssGlobal.espacamentoMenuBaixo}></div>
