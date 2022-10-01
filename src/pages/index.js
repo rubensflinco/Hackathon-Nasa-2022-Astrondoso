@@ -45,11 +45,24 @@ export default function PagesInicio(props) {
             nome="Home em construção"
         />
 
-        <Msg
-            icone={(<>Icone</>)}
-            titulo={`Em Construção`}
-            descricao={`Estamos trabalhando duro para tudo funcionar`}
-        />
+        {(props.carregando) ? (<>
+            <Msg icone={(<p>icon carregando</p>)} titulo={`Carregando...`} />
+        </>) : (<>
+            {(props.erro) ? (<>
+                <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+            </>) : (<>
+
+
+                <Msg
+                    icone={(<>Icone</>)}
+                    titulo={`Em Construção`}
+                    descricao={`Estamos trabalhando duro para tudo funcionar`}
+                />
+
+            </>)
+            }
+        </>)
+        }
     </>)
 }
 
