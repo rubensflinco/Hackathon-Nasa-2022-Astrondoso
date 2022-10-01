@@ -23,3 +23,21 @@
     letter-spacing: 0.045em;
     color: #FFFFFF;
 }
+
+.btnRespostaCorreta {
+
+    background: linear-gradient(260.22deg, rgba(5, 247, 0, 0.1) 1.09%, rgba(100, 202, 65, 0.1) 66.51%, rgba(22, 226, 42, 0.042) 98.47%);
+    border: 1px solid rgba(17, 240, 39, 0.33);
+    backdrop-filter: blur(6.92139px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 13.8428px;
+
+}
+
+.btnRespostaErrada {
+    background: linear-gradient(260.22deg, rgba(254, 0, 0, 0.1) 1.09%, rgba(211, 55, 55, 0.1) 66.51%, rgba(255, 4, 4, 0.059) 98.46%, rgba(239, 30, 30, 0.042) 98.47%);
+    border: 1px solid rgba(255, 14, 14, 0.33);
+    backdrop-filter: blur(6.92139px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 13.8428px;
+}
