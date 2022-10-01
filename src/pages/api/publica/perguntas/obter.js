@@ -1,13 +1,14 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
-import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Perguntas from '../../../../models/perguntas';
 import replaceAll from '../../../../functions/replaceAll';
+import absoluteUrl from 'next-absolute-url';
+import '../../../../models/galeria';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
-  let method = 'POST'
-
+export default async function apiPublicaPerguntasObter(req, res) {
+  let method = 'GET'
+  
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -16,25 +17,36 @@ export default async function apiPublicaUsuarioCriar(req, res) {
     });
   }
 
-
-
   if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
+      let parametrosBusca = {};
+      let urlCurrent = absoluteUrl(req);
       await databaseConnect();
 
 
 
 
-      if (!dados.slug) {
-        dados.slug = criarSlug(dados.titulo);
+      if(condicoes?.slug){
+        parametrosBusca.slug = condicoes?.slug;
       }
+      if(condicoes?._id){
+        parametrosBusca._id = condicoes?._id;
+      }
+      if (!condicoes?.limite) {
+        condicoes.limite = 1;
+      }
+      
 
-
-      let resBancoDeDados = await Usuario.create(dados);
-      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
+      let resBancoDeDados = await Perguntas.find(parametrosBusca).populate({ path: "idGaleria" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      
+      await Promise.all(resBancoDeDados.map(function (dados) {
+        dados.idGaleria.imgPathName = `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`
+      }));
+      
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
 

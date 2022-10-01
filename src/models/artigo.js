@@ -14,7 +14,7 @@ const esquema = new mongoose.Schema({
   },
   subTitulo: {
     type: String,
-    required: 'é obrigatório!',
+    default: '',
   },
   secoes: [
     {

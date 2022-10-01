@@ -1,6 +1,6 @@
 export default function Msg(props) {
     return (
-        <center>
+        <center class="text-white">
             {props?.icone}
             <h1>{props?.titulo}</h1>
             <p>{props?.descricao}</p>

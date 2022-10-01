@@ -1,13 +1,14 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
-import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Menu from '../../../../models/menu';
 import replaceAll from '../../../../functions/replaceAll';
+import absoluteUrl from 'next-absolute-url';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
-  let method = 'POST'
 
+export default async function apiPublicaMenuObter(req, res) {
+  let method = 'GET'
+  
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -16,25 +17,33 @@ export default async function apiPublicaUsuarioCriar(req, res) {
     });
   }
 
-
-
   if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
+      let parametrosBusca = {};
+      let urlCurrent = absoluteUrl(req);
       await databaseConnect();
 
 
 
 
-      if (!dados.slug) {
-        dados.slug = criarSlug(dados.titulo);
+      if(condicoes?._id){
+        parametrosBusca._id = condicoes?._id;
       }
+      if (!condicoes?.limite) {
+        condicoes.limite = 1;
+      }
+      
 
+      let resBancoDeDados = await Menu.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      
+      await Promise.all(resBancoDeDados.map(function (dados) {
+        dados.imgIconPathName = `${urlCurrent.origin}/img/icon/${dados.imgIconPathName}`
+      }));
 
-      let resBancoDeDados = await Usuario.create(dados);
-      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
 

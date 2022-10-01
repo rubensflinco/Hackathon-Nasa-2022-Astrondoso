@@ -7,50 +7,43 @@ import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
 import jwt from 'jsonwebtoken';
 
-export default async function apiPrivadaUsuarioLogar(req, res) {
+export default async function apiPublicaUsuarioLogar(req, res) {
+  let method = 'POST'
+
   if (res !== null) {
     await NextCors(req, res, {
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      methods: ['HEAD', 'OPTIONS', method],
       origin: '*',
       optionsSuccessStatus: 200,
     });
   }
 
-
-
-  if (req?.method === "POST") {
+  if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
-      let tokenAmbiente = req.headers.token_ambiente;
-      let resValidacao = await validaTokens(tokenAmbiente || true, false);
       await databaseConnect();
 
 
 
 
-      if (!condicoes?.email) {
-        throw new Error(`ValidationError: Campo 'condicoes.email' é obrigatório.`);
+      if (!condicoes?.tokenWebAuth) {
+        throw new Error(`ValidationError: Campo 'condicoes.tokenWebAuth' é obrigatório.`);
       }
 
 
 
-      let resBancoDeDados = await Usuario.findOne({ email: condicoes?.email }, { runValidators: true }).select('+senha status statusMotivo');
-      if(resBancoDeDados?.status === "verificado"){
+      let resBancoDeDados = await Usuario.findOne({ tokenWebAuth: condicoes?.tokenWebAuth }, { runValidators: true }).select('+senha');
 
-        let dadosToken = { id: String(resBancoDeDados?._id) }
-        let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
-        if (bcryptjs.compareSync(condicoes?.senha, resBancoDeDados?.senha)) {
-          return apiResponse(res, 400, "ERRO", "Dados obtidos token do usuario na resposta.", {tokenUsuario: token});
-        } else {
-          throw new Error(`ValidationError: Dados não existe ou senha está inválida.`);
-        }
-      }else{
-        throw new Error(`ValidationError: Usuario com status '${resBancoDeDados?.status}' pelo motivo: ${resBancoDeDados?.statusMotivo} .`);
+      let dadosToken = { id: String(resBancoDeDados?._id) }
+      let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
+      if (bcryptjs.compareSync(condicoes?.senha, resBancoDeDados?.senha)) {
+        return apiResponse(res, 400, "ERRO", "Dados obtidos token do usuario na resposta.", { tokenUsuario: token });
+      } else {
+        throw new Error(`ValidationError: Dados não existe ou senha está inválida.`);
       }
-
-
+      
 
     } catch (error) {
       if (String(error).includes(`email_1 dup key`)) {

@@ -1,12 +1,11 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
-import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Menu from '../../../../models/menu';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
-  let method = 'POST'
+export default async function apiPublicaMenuCriar(req, res) {
+let method = 'POST'
 
   if (res !== null) {
     await NextCors(req, res, {
@@ -27,13 +26,7 @@ export default async function apiPublicaUsuarioCriar(req, res) {
 
 
 
-
-      if (!dados.slug) {
-        dados.slug = criarSlug(dados.titulo);
-      }
-
-
-      let resBancoDeDados = await Usuario.create(dados);
+      let resBancoDeDados = await Menu.create(dados);
       return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
 
 

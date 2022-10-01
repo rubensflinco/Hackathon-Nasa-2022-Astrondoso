@@ -1,13 +1,12 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
-import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Menu from '../../../../models/menu';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
-  let method = 'POST'
-
+export default async function apiPublicaMenuEditar(req, res) {
+  let method = 'PUT';
+  
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -17,7 +16,6 @@ export default async function apiPublicaUsuarioCriar(req, res) {
   }
 
 
-
   if (req?.method === method) {
     try {
       let body = req.body;
@@ -25,24 +23,21 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       let condicoes = body?.condicoes;
       await databaseConnect();
 
-
-
-
-      if (!dados.slug) {
-        dados.slug = criarSlug(dados.titulo);
+      if (Object.keys(dados).length == 0) {
+        throw new Error(`ValidationError: Você não informou nenhum dado a ser editado.`);
       }
 
-
-      let resBancoDeDados = await Usuario.create(dados);
-      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
-
-
+      let resBancoDeDados = await Menu.findOneAndUpdate({ _id: condicoes._id }, dados, { runValidators: true });
+      if(resBancoDeDados){
+        return apiResponse(res, 200, "OK", "Dados atualizados com sucesso.", resBancoDeDados);
+      }else{
+        throw new Error(`ValidationError: Dado não encontrado.`);
+      }
 
     } catch (error) {
       if (String(error).includes(`ValidationError:`)) {
         return apiResponse(res, 400, "ERRO", replaceAll((String(error).replace("ValidationError: ", "")), ":", ""), String(error));
       }
-
 
       console.error(error);
       return apiResponse(res, 500, "ERRO", "Tivemos um problema tente novamente mais tarde, caso persistir contate nossa equipe de atendimento via email.", String(error));

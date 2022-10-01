@@ -2,10 +2,10 @@ import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
 import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Perguntas from '../../../../models/perguntas';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
+export default async function apiPublicaPerguntasCriar(req, res) {
   let method = 'POST'
 
   if (res !== null) {
@@ -33,7 +33,7 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       }
 
 
-      let resBancoDeDados = await Usuario.create(dados);
+      let resBancoDeDados = await Perguntas.create(dados);
       return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
 
 

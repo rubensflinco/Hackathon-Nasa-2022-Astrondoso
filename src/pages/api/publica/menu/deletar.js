@@ -1,13 +1,12 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
-import criarSlug from "../../../../functions/criarSlug";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Usuario from '../../../../models/usuario';
+import Menu from '../../../../models/menu';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaUsuarioCriar(req, res) {
-  let method = 'POST'
-
+export default async function apiPublicaMenuDeletar(req, res) {
+  let method = 'DELETE'
+  
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -15,8 +14,6 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       optionsSuccessStatus: 200,
     });
   }
-
-
 
   if (req?.method === method) {
     try {
@@ -26,15 +23,8 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       await databaseConnect();
 
 
-
-
-      if (!dados.slug) {
-        dados.slug = criarSlug(dados.titulo);
-      }
-
-
-      let resBancoDeDados = await Usuario.create(dados);
-      return apiResponse(res, 200, "OK", "Dados criados e listados na resposta.", resBancoDeDados);
+      let resBancoDeDados = await Menu.remove({_id: condicoes._id});
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
 

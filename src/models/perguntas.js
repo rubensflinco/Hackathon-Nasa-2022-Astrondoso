@@ -21,7 +21,8 @@ const esquema = new mongoose.Schema({
     ref: 'Galeria',
     required: 'é obrigatório!',
   },
-  opcoes: {
+  opcoes: [
+    {
     titulo: {
       type: String,
       required: 'é obrigatório!',
@@ -30,7 +31,8 @@ const esquema = new mongoose.Schema({
       type: Boolean,
       default: false,
     }
-  },
+  }
+  ],
 },
   {
     timestamps: true
