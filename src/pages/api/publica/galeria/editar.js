@@ -1,11 +1,11 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Artigo from '../../../../models/artigo';
+import Galeria from '../../../../models/galeria';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaArtigoObter(req, res) {
-  let method = 'GET'
+export default async function apiPublicaGaleriaEditar(req, res) {
+  let method = 'PUT';
   
   if (res !== null) {
     await NextCors(req, res, {
@@ -15,38 +15,29 @@ export default async function apiPublicaArtigoObter(req, res) {
     });
   }
 
+
   if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
-      let parametrosBusca = {};
       await databaseConnect();
 
-
-
-
-      if(condicoes?.slug){
-        parametrosBusca.slug = condicoes?.slug;
+      if (Object.keys(dados).length == 0) {
+        throw new Error(`ValidationError: Você não informou nenhum dado a ser editado.`);
       }
-      if(condicoes?._id){
-        parametrosBusca._id = condicoes?._id;
+
+      let resBancoDeDados = await Galeria.findOneAndUpdate({ _id: condicoes._id }, dados, { runValidators: true });
+      if(resBancoDeDados){
+        return apiResponse(res, 200, "OK", "Dados atualizados com sucesso.", resBancoDeDados);
+      }else{
+        throw new Error(`ValidationError: Dado não encontrado.`);
       }
-      if (!condicoes?.limite) {
-        condicoes.limite = 1;
-      }
-      
-
-      let resBancoDeDados = await Artigo.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
-
-
 
     } catch (error) {
       if (String(error).includes(`ValidationError:`)) {
         return apiResponse(res, 400, "ERRO", replaceAll((String(error).replace("ValidationError: ", "")), ":", ""), String(error));
       }
-
 
       console.error(error);
       return apiResponse(res, 500, "ERRO", "Tivemos um problema tente novamente mais tarde, caso persistir contate nossa equipe de atendimento via email.", String(error));
