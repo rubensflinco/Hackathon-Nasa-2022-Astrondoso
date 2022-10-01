@@ -1,30 +1,29 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
-import validaTokens from "../../../../functions/validaTokens";
 import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
-import '../../../../models/empresa';
+import absoluteUrl from 'next-absolute-url';
+import '../../../../models/galeria';
 
-export default async function apiPrivadaUsuarioObter(req, res) {
+export default async function apiPublicaUsuarioObter(req, res) {
+  let method = 'GET'
+  
   if (res !== null) {
     await NextCors(req, res, {
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      methods: ['HEAD', 'OPTIONS', method],
       origin: '*',
       optionsSuccessStatus: 200,
     });
   }
 
-
-
-  if (req?.method === "GET") {
+  if (req?.method === method) {
     try {
       let body = req.body;
       let dados = body?.dados;
       let condicoes = body?.condicoes;
-      let tokenAmbiente = req.headers.token_ambiente;
-      let resValidacao = await validaTokens(tokenAmbiente || true, false);
       let parametrosBusca = {};
+      let urlCurrent = absoluteUrl(req);
       await databaseConnect();
 
 
@@ -33,30 +32,25 @@ export default async function apiPrivadaUsuarioObter(req, res) {
       if(condicoes?.slug){
         parametrosBusca.slug = condicoes?.slug;
       }
-      if(condicoes?.email){
-        parametrosBusca.email = condicoes?.email;
-      }
-      if(condicoes?.id){
-        parametrosBusca.id = condicoes?.id;
+      if(condicoes?._id){
+        parametrosBusca._id = condicoes?._id;
       }
       if (!condicoes?.limite) {
         condicoes.limite = 1;
       }
-      if(Object.keys(parametrosBusca).length == 0){
-        throw new Error(`ValidationError: Você não informou nenhuma condição de filtro para conseguirmos obter um usuario no banco de dados.`);
-      }
+      
 
-
-
-      let resBancoDeDados = await Usuario.find(parametrosBusca).populate({ path: "empresas.id" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      let resBancoDeDados = await Usuario.find(parametrosBusca).populate({ path: "idGaleria" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      
+      await Promise.all(resBancoDeDados.map(function (dados) {
+        dados.idGaleria.imgPathName = `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`
+      }));
+      
       return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
 
     } catch (error) {
-      if (String(error).includes(`email_1 dup key`)) {
-        return apiResponse(res, 400, "ERRO", "Endereço de email já cadastrado.", String(error));
-      }
       if (String(error).includes(`ValidationError:`)) {
         return apiResponse(res, 400, "ERRO", replaceAll((String(error).replace("ValidationError: ", "")), ":", ""), String(error));
       }
