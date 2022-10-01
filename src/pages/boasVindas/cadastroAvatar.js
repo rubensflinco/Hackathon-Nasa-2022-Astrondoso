@@ -56,10 +56,10 @@ export default function PagesBoasVindasCadastroAvatar(props) {
                     <p class="block w-full text-center text-xl text-white ">Escolha o seu avatar</p>
                     <div class="flex flex-col gap-[-1.25rem] justify-center items-center w-full">
                         <button>
-                            <img class="block" src="/img/babyet.png" />
+                            <img class="block" src="/img/avatar/babyet.png" />
                         </button>
                         <button>
-                        <img class="block" src="/img/astrocat.png" />
+                        <img class="block" src="/img/avatar/astrocat.png" />
                         </button>
                     </div>
                     <BtnPrincipal link={`/boasVindas/cadastroNome`}>
