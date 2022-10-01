@@ -3,9 +3,8 @@ import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
 import Artigo from '../../../../models/artigo';
 import replaceAll from '../../../../functions/replaceAll';
-import '../../../../models/empresa';
 
-export default async function apiPublicaArtigoObter(req, res) {
+export default async function apiPublicaArtigoDeletar(req, res) {
   let method = 'DELETE'
   
   if (res !== null) {

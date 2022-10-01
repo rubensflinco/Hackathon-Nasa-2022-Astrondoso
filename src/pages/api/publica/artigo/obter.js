@@ -3,7 +3,6 @@ import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
 import Artigo from '../../../../models/artigo';
 import replaceAll from '../../../../functions/replaceAll';
-import '../../../../models/empresa';
 
 export default async function apiPublicaArtigoObter(req, res) {
   let method = 'GET'

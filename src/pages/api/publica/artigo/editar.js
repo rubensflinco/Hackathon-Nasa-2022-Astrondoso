@@ -27,7 +27,7 @@ export default async function apiPublicaArtigoEditar(req, res) {
         throw new Error(`ValidationError: Você não informou nenhum dado a ser editado.`);
       }
 
-      let resBancoDeDados = await Artigo.findOneAndUpdate({ _id: condicoes?._id }, dados, { runValidators: true });
+      let resBancoDeDados = await Artigo.findOneAndUpdate({ _id: condicoes._id }, dados, { runValidators: true });
       if(resBancoDeDados){
         return apiResponse(res, 200, "OK", "Dados atualizados com sucesso.", resBancoDeDados);
       }else{
