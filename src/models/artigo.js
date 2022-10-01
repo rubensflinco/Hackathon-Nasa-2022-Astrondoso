@@ -12,7 +12,7 @@ const esquema = new mongoose.Schema({
     type: String,
     required: 'é obrigatório!',
   },
-  subTituo: {
+  subTitulo: {
     type: String,
     required: 'é obrigatório!',
   },
