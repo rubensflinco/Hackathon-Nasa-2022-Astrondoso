@@ -1,10 +1,10 @@
 import NextCors from 'nextjs-cors';
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
-import Artigo from '../../../../models/artigo';
+import Galeria from '../../../../models/galeria';
 import replaceAll from '../../../../functions/replaceAll';
 
-export default async function apiPublicaArtigoObter(req, res) {
+export default async function apiPublicaGaleriaObter(req, res) {
   let method = 'GET'
   
   if (res !== null) {
@@ -37,7 +37,7 @@ export default async function apiPublicaArtigoObter(req, res) {
       }
       
 
-      let resBancoDeDados = await Artigo.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      let resBancoDeDados = await Galeria.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
       return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
 
 
