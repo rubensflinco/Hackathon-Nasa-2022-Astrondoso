@@ -4,26 +4,26 @@ const esquema = new mongoose.Schema({
   slug: {
     type: String,
     unique: true,
-    required: true,
     lowercase: true,
-    index: true
+    index: true,
+    required: 'é obrigatório!',
   },
   titulo: {
     type: String,
-    required: true,
+    required: 'é obrigatório!',
   },
   subTituo: {
     type: String,
-    required: true,
+    required: 'é obrigatório!',
   },
   secoes: {
     titulo: {
       type: String,
-      required: true,
+      required: 'é obrigatório!',
     },
     conteudo: {
       type: String,
-      required: true,
+      required: 'é obrigatório!',
     }
   },
 },
