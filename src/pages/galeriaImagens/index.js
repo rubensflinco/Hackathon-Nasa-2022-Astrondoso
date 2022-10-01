@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BtnPrincipal from '../../components/btnPrincipal';
+import LinkPrincipal from '../../components/linkPrincipal';
 import Cabecalho from '../../components/cabeçalho';
 import CardAccordion from '../../components/cardAccordion';
 import CardImagens from '../../components/cardImagens';

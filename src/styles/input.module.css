@@ -4,6 +4,7 @@
     backdrop-filter: blur(6.92139px);
     /* Note: backdrop-filter has minimal browser support */
     border-radius: 13.8428px;
+    color: #FFFFFF;
 }
 
 .inputTitulo {

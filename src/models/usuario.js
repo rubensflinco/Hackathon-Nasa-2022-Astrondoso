@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import validacaoPorRegex from '../functions/validacaoPorRegex'
 
 const esquema = new mongoose.Schema({
   slug: {
@@ -8,13 +9,17 @@ const esquema = new mongoose.Schema({
     index: true,
     required: 'é obrigatório!',
   },
-  tokenWebAuth: {
-    type: String,
-    required: 'é obrigatório!'
-  },
   nome: {
     type: String,
     required: 'é obrigatório!'
+  },
+  email: {
+    type: String,
+    required: 'é obrigatório!',
+    validate: {
+      validator: (valor) => { return validacaoPorRegex(valor, "email") },
+      message: 'inválida!'
+    }
   },
   avatar: {
     type: String,

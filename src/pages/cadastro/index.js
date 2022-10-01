@@ -3,6 +3,7 @@ import BtnPrincipal from '../../components/btnPrincipal';
 import InputPrincipal from '../../components/input';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
+import WebAuthUtil from '../../functions/webauth/util';
 
 
 
@@ -30,7 +31,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesBoasVindasCadastroNome(props) {
+export default function PagesCadastroNome(props) {
 
 
     React.useEffect(() => {
@@ -44,7 +45,7 @@ export default function PagesBoasVindasCadastroNome(props) {
 
     return (<>
         <TituloPagina
-            nome="Escolha o seu avatar"
+            nome="Cadastro"
         />
 
         {(props.carregando) ? (<>
@@ -53,15 +54,20 @@ export default function PagesBoasVindasCadastroNome(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
-                    <InputPrincipal titulo="Qual o seu nome?">
-                        Digite o seu primeiro nome
-                    </InputPrincipal>
+                <form action="/cadastro/action" method="POST" enctype="application/x-www-form-urlencoded">
+                    <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+                        <InputPrincipal titulo="Qual seu e-mail?" name="email" type="email">
+                            Digite o seu endereço de e-mail
+                        </InputPrincipal>
+                        <InputPrincipal titulo="Qual o seu nome?" name="nome">
+                            Digite o seu primeiro nome
+                        </InputPrincipal>
 
-                    <BtnPrincipal link={`/boasVindas/`}>
-                        Próximo
-                    </BtnPrincipal>
-                </div>
+                        <BtnPrincipal type="submit">
+                            Próximo
+                        </BtnPrincipal>
+                    </div>
+                </form>
             </>)
             }
         </>)

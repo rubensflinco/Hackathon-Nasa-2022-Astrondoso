@@ -1,5 +1,5 @@
 import * as React from 'react';
-import BtnPrincipal from '../../components/btnPrincipal';
+import LinkPrincipal from '../../components/linkPrincipal';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
 
@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesBoasVindasInicio(props) {
+export default function PagesCadastroAvatar(props) {
 
 
     React.useEffect(() => {
@@ -43,7 +43,7 @@ export default function PagesBoasVindasInicio(props) {
 
     return (<>
         <TituloPagina
-            nome="Inicio"
+            nome="Escolha o seu avatar"
         />
 
         {(props.carregando) ? (<>
@@ -52,14 +52,19 @@ export default function PagesBoasVindasInicio(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <div class="flex flex-col gap-[1.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
-                    <img class="block" src="/img/logo-james-webb.png" />
-                    <p class={props?.cssGlobal?.tituloLogo}>james webb</p>
-                    <p class={props?.cssGlobal?.subtituloLogo}>aprendizagem divertida</p>
-
-                    <BtnPrincipal link={`/boasVindas/cadastroAvatar`}>
-                        Começar
-                    </BtnPrincipal>
+                <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+                    <p class="block w-full text-center text-xl text-white ">Escolha o seu avatar</p>
+                    <div class="flex flex-col gap-[-1.25rem] justify-center items-center w-full">
+                        <button>
+                            <img class="block" src="/img/avatar/babyet.png" />
+                        </button>
+                        <button>
+                        <img class="block" src="/img/avatar/astrocat.png" />
+                        </button>
+                    </div>
+                    <LinkPrincipal link={`/boasVindas/cadastroNome`}>
+                        Próximo
+                    </LinkPrincipal>
                 </div>
             </>)
             }
