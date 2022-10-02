@@ -1,12 +1,13 @@
 import * as React from 'react';
-import BtnPrincipal from '../../components/btnPrincipal';
-import InputPrincipal from '../../components/input';
-import Msg from '../../components/msg';
-import TituloPagina from '../../components/titulo-pagina';
-import request from '../../functions/request';
+import BtnPrincipal from '../../../components/btnPrincipal';
+import InputPrincipal from '../../../components/input';
+import Msg from '../../../components/msg';
+import TituloPagina from '../../../components/titulo-pagina';
+import request from '../../../functions/request';
 import { setCookies } from 'cookies-next';
 import Router from 'next/router';
-import convertWwwFormInJson from '../../functions/convertWwwFormInJson';
+import convertWwwFormInJson from '../../../functions/convertWwwFormInJson';
+import getUsuarioPorTokenCookies from '../../../functions/getUsuarioPorTokenCookies';
 
 
 
@@ -16,9 +17,10 @@ export async function getServerSideProps(context) {
 
     if (req.method == "POST") {
         try {
+            let usuarioLogado = await getUsuarioPorTokenCookies(context);
             let body = await convertWwwFormInJson(req);
-            let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/criar`, {}, { dados: body });
- 
+            let respostaApi = await request("PUT", `${process.env.API_PUBLICA_BASE_URL}/usuario/editar`, {}, { dados: body, condicoes: { _id: usuarioLogado?.id } });
+            
             setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
             
             return {
@@ -33,14 +35,14 @@ export async function getServerSideProps(context) {
 
     } else {
         return {
-            redirect: { destination: '/cadastro', permanent: false }
+            redirect: { destination: '/cadastro/avatar', permanent: false }
         }
     }
 
 }
 
 
-export default function PagesCadastroNome(props) {
+export default function PagesCadastroAvatarAction(props) {
 
 
     React.useEffect(() => {

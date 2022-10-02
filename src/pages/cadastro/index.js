@@ -3,24 +3,30 @@ import BtnPrincipal from '../../components/btnPrincipal';
 import InputPrincipal from '../../components/input';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
-import WebAuthUtil from '../../functions/webauth/util';
-
+import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
 
 
 
 
 // Função executada quando no servidor sempre que tem uma nova requisição
 export async function getServerSideProps(context) {
+
+
+    // [INICIO] checando se o usuario esta autenticado
     try {
-
-        return {
-            props: {
-
+        let usuarioLogado = await getUsuarioPorTokenCookies(context);
+        if (usuarioLogado?.token) {
+            return {
+                redirect: {
+                    destination: '/menu', permanent: false
+                }
+            }
+        } else {
+            return {
+                props: {}
             }
         }
-
     } catch (error) {
-
         return {
             props: {
                 erro: String(error)
@@ -28,8 +34,10 @@ export async function getServerSideProps(context) {
         }
 
     }
-}
+    // [FIM] checando se o usuario esta autenticado
 
+
+}
 
 export default function PagesCadastroNome(props) {
 
