@@ -19,6 +19,7 @@ export default function Cabecalho(props) {
                 </div>
             </div>
             <p class="block text-[1.04rem] text-white text-center">{props?.tituloPagina}</p>
+            <p class="block text-[0.74rem] text-white text-center">{props?.subTitulo}</p>
         </div>
         <div style={{ marginBottom: "10rem" }}></div>
     </>)

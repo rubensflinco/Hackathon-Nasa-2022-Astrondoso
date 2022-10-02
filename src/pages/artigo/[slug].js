@@ -86,8 +86,7 @@ export default function PagesMenu(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <Cabecalho tituloPagina={props?.artigo?.titulo || ""} iconClick={()=>{window.history.back()}} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
-                <p>{props?.artigo?.subtitulo}</p>
+                <Cabecalho tituloPagina={props?.artigo?.titulo || ""} subTitulo={props?.artigo?.subTitulo} iconClick={()=>{window.history.back()}} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
 
                 {

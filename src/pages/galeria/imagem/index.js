@@ -83,7 +83,7 @@ export default function PagesMenu(props) {
 
                 {
                     props?.fotos?.map((foto)=>(<>
-                        <CardImagens titulo={foto?.titulo} descricao={`<b>Data da foto: ${foto?.dataDivulgacao} </b><br/>${foto?.subtitulo || ""}`} img={foto?.imgPathName}/>
+                        <CardImagens titulo={foto?.titulo} descricao={`<b>Data da foto: ${foto?.dataDivulgacao} </b><br/>${foto?.subTitulo || ""}`} img={foto?.imgPathName}/>
                     </>))
                 }
             </>)
