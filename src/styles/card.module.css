@@ -18,3 +18,13 @@
     border-radius: 13.8428px;
 
 }
+
+.limitImg{
+    border-radius: 1rem;
+    overflow: hidden;
+}
+.limitImg img{
+    width: 25rem;
+    height: 20rem;
+    object-fit: cover;
+}

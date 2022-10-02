@@ -5,8 +5,8 @@ export default function Cabecalho(props) {
     return (<>
         <div class={cssCabecalho?.navbar}>
             <div class="flex flex-row gap-[0.56rem] justify-center items-center w-full">
-                <button>
-                <i class={props.icone}></i>
+                <button onClick={props?.iconClick}>
+                    <i class={props.icone}></i>
                 </button>
                 <div class="flex flex-col justify-center items-end w-full">
                     <p class="block w-full text-right text-xl text-white ">{props?.usuarioLogadoDados?.nome}</p>
@@ -18,6 +18,6 @@ export default function Cabecalho(props) {
             </div>
             <p class="block text-[1.04rem] text-white text-center">{props?.tituloPagina}</p>
         </div>
-        <div style={{marginBottom: "10rem"}}></div>
+        <div style={{ marginBottom: "10rem" }}></div>
     </>)
 }

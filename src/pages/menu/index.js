@@ -17,15 +17,14 @@ export async function getServerSideProps(context) {
     // [INICIO] checando se o usuario esta autenticado
     try {
         let usuarioLogado = await getUsuarioPorTokenCookies(context);
-        console.log("🚀 ~ file: index.js ~ line 20 ~ getServerSideProps ~ usuarioLogado", usuarioLogado)
         if (usuarioLogado?.token) {
             let usuarioLogadoDados = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/usuario/obter`, {}, { condicoes: { limite: 1, _id: usuarioLogado?.id } });
             let menus = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/menu/obter`, {}, { condicoes: { limite: 99 } });
             let artigos = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/artigo/obter`, {}, { condicoes: { limite: 10 } });
 
-            // if(!usuarioLogadoDados?.[0]?.nome){
-            //     deslogarUser(context);
-            // }
+            if(!usuarioLogadoDados?.[0]?._id){
+                deslogarUser(context);
+            }
 
             return {
                 props: {
@@ -35,7 +34,7 @@ export async function getServerSideProps(context) {
                 }
             }
         } else {
-            // deslogarUser(context);
+            deslogarUser(context);
             return {
                 redirect: {
                     destination: '/logando', permanent: false
@@ -82,7 +81,7 @@ export default function PagesMenu(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <Cabecalho tituloPagina="Menu" usuarioLogadoDados={props?.usuarioLogadoDados} />
+                <Cabecalho tituloPagina="Menu" iconClick={()=>{window.location.href = "/sair"}} icone="fa-solid fa-right-from-bracket text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
 
                 {

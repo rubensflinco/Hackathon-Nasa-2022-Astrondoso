@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BtnPrincipal from '../../components/btnPrincipal';
 import BtnResposta from '../../components/btnRespostas';
-import Cabecalho from '../../components/cabeçalho';
+import Cabecalho from '../../components/cabecalho';
 import CardQuiz from '../../components/cardQuiz';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
