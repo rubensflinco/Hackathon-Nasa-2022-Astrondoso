@@ -44,10 +44,16 @@ export default async function apiPublicaPerguntasObter(req, res) {
       let resBancoDeDados = await Perguntas.find(parametrosBusca).populate({ path: "idGaleria" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
 
       await Promise.all(resBancoDeDados.map(function (dados) {
+        let edit = {};
+        if (dados.idGaleria) {
+          edit = {
+            idGaleria: {
+              imgUrl: `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`,
+            }
+          }
+        }
         resDados.push({
-          idGaleria: {
-            imgUrl: `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`,
-          },
+          ...edit,
           ...dados._doc
         });
       }));

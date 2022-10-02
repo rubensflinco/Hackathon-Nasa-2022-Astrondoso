@@ -20,10 +20,6 @@ export async function getServerSideProps(context) {
         if (usuarioLogado?.token) {
             let perguntas = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/perguntas/obter`, {}, { condicoes: { limite: 99 } });
 
-            if (!usuarioLogadoDados?.[0]?._id) {
-                deslogarUser(context);
-            }
-
             return {
                 props: {
                     perguntas
@@ -57,9 +53,7 @@ export default function PagesQuiz(props) {
     React.useEffect(() => {
         (async () => {
 
-            if (!props?.usuarioLogadoDados?._id) {
-                deslogarUser("CLIENTE");
-            }
+            console.log("perguntas", props?.perguntas)
 
         })()
     }, [])
