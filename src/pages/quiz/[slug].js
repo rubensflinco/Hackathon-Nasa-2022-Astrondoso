@@ -35,7 +35,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesArtigo(props) {
+export default function PagesQuizPergunta(props) {
 
 
     React.useEffect(() => {

@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesMenu(props) {
+export default function PagesJames3D(props) {
 
     let [rotation, setRotation] = React.useState({ x: 0, y: 0, z: 0 });
 

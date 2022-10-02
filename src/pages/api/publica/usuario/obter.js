@@ -35,18 +35,25 @@ export default async function apiPublicaUsuarioObter(req, res) {
       if(condicoes?._id){
         parametrosBusca._id = condicoes?._id;
       }
+      if(condicoes?.email){
+        parametrosBusca.email = condicoes?.email;
+      }
       if (!condicoes?.limite) {
         condicoes.limite = 1;
       }
       
 
+      let resDados = [];
       let resBancoDeDados = await Usuario.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
       
       await Promise.all(resBancoDeDados.map(function (dados) {
-        dados.avatar = `${urlCurrent.origin}/img/avatar/${dados.avatar}`
+        resDados.push({
+          avatarUrl: `${urlCurrent.origin}/img/avatar/${dados.avatar}`,
+          ...dados._doc
+        });
       }));
       
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resDados);
 
 
 

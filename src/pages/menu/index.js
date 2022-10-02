@@ -88,7 +88,7 @@ export default function PagesMenu(props) {
                 {
                     props?.menus?.map((menu) => (<>
                         {(menu?.posicao === "cima") && (<>
-                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={menu?.imgIconPathName} link={menu?.click?.link} target={menu?.click?.target} />
+                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={`${(menu?.imgIconPathName) && menu?.imgIconUrl}`} link={menu?.click?.link} target={menu?.click?.target} />
                         </>)}
                     </>))
                 }
@@ -97,13 +97,13 @@ export default function PagesMenu(props) {
                 <h2 class="block text-[NaNrem] text-white mb-3 mt-3" >Aprenda +</h2>
                 {
                     props?.artigos?.map((artigo) => (<>
-                        <CardPrincipal titulo={artigo?.titulo} descricao={artigo?.subTitulo} img={artigo?.imgIconPathName} link={`/artigo/${artigo?.slug}`} />
+                        <CardPrincipal titulo={artigo?.titulo} descricao={artigo?.subTitulo} img={(artigo?.imgIconPathName) && artigo?.imgIconUrl} link={`/artigo/${artigo?.slug}`} />
                     </>))
                 }
                 {
                     props?.menus?.map((menu) => (<>
                         {(menu?.posicao === "meio") && (<>
-                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={menu?.imgIconPathName} link={menu?.click?.link} target={menu?.click?.target} />
+                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={(menu?.imgIconPathName) && menu?.imgIconUrl} link={menu?.click?.link} target={menu?.click?.target} />
                         </>)}
                     </>))
                 }
@@ -113,7 +113,7 @@ export default function PagesMenu(props) {
                 {
                     props?.menus?.map((menu) => (<>
                         {(menu?.posicao === "baixo") && (<>
-                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={menu?.imgIconPathName} link={menu?.click?.link} target={menu?.click?.target} />
+                            <CardPrincipal titulo={menu?.titulo} descricao={menu?.subTitulo} img={(menu?.imgIconPathName) && menu?.imgIconUrl} link={menu?.click?.link} target={menu?.click?.target} />
                         </>)}
                     </>))
                 }

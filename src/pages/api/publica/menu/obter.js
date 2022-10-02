@@ -8,7 +8,7 @@ import absoluteUrl from 'next-absolute-url';
 
 export default async function apiPublicaMenuObter(req, res) {
   let method = 'PROPFIND'
-  
+
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -29,21 +29,25 @@ export default async function apiPublicaMenuObter(req, res) {
 
 
 
-      if(condicoes?._id){
+      if (condicoes?._id) {
         parametrosBusca._id = condicoes?._id;
       }
       if (!condicoes?.limite) {
         condicoes.limite = 1;
       }
-      
 
+
+      let resDados = [];
       let resBancoDeDados = await Menu.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
-      
+
       await Promise.all(resBancoDeDados.map(function (dados) {
-        dados.imgIconPathName = `${urlCurrent.origin}/img/icon/${dados.imgIconPathName}`
+        resDados.push({
+          imgIconUrl: `${urlCurrent.origin}/img/icon/${dados.imgIconPathName}`,
+          ...dados._doc
+        });
       }));
 
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resDados);
 
 
 

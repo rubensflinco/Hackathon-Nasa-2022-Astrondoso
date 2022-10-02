@@ -40,13 +40,17 @@ export default async function apiPublicaGaleriaObter(req, res) {
       }
       
 
+      let resDados = [];
       let resBancoDeDados = await Galeria.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
       
       await Promise.all(resBancoDeDados.map(function (dados) {
-        dados.imgPathName = `${urlCurrent.origin}/img/${dados.imgPathName}`
+        resDados.push({
+          imgUrl: `${urlCurrent.origin}/img/${dados.imgPathName}`,
+          ...dados._doc
+        });
       }));
 
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resDados);
 
 
 

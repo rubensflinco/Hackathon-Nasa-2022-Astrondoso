@@ -8,7 +8,7 @@ import '../../../../models/galeria';
 
 export default async function apiPublicaPerguntasObter(req, res) {
   let method = 'PROPFIND'
-  
+
   if (res !== null) {
     await NextCors(req, res, {
       methods: ['HEAD', 'OPTIONS', method],
@@ -29,24 +29,30 @@ export default async function apiPublicaPerguntasObter(req, res) {
 
 
 
-      if(condicoes?.slug){
+      if (condicoes?.slug) {
         parametrosBusca.slug = condicoes?.slug;
       }
-      if(condicoes?._id){
+      if (condicoes?._id) {
         parametrosBusca._id = condicoes?._id;
       }
       if (!condicoes?.limite) {
         condicoes.limite = 1;
       }
-      
 
+
+      let resDados = [];
       let resBancoDeDados = await Perguntas.find(parametrosBusca).populate({ path: "idGaleria" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
-      
+
       await Promise.all(resBancoDeDados.map(function (dados) {
-        dados.idGaleria.imgPathName = `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`
+        resDados.push({
+          idGaleria: {
+            imgUrl: `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`,
+          },
+          ...dados._doc
+        });
       }));
-      
-      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);
+
+      return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resDados);
 
 
 

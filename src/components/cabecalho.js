@@ -14,7 +14,7 @@ export default function Cabecalho(props) {
                 </div>
                 <div style={{cursor:"pointer"}}>
                     <Link href={`/cadastro/avatar`}>
-                        <img class="block" src={props?.usuarioLogadoDados?.avatar} />
+                        <img class="block" src={props?.usuarioLogadoDados?.avatarUrl} />
                     </Link>
                 </div>
             </div>
