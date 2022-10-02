@@ -21,10 +21,8 @@ export async function getServerSideProps(context) {
             let body = await convertWwwFormInJson(req);
             let respostaApi = await request("PUT", `${process.env.API_PUBLICA_BASE_URL}/usuario/editar`, {}, { dados: body, condicoes: { _id: usuarioLogado?.id } });
             
-            setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
-            
             return {
-                props: { token_sessao_usuario: respostaApi.token }
+                props: { }
             }
 
         } catch (error) {
@@ -48,10 +46,7 @@ export default function PagesCadastroAvatarAction(props) {
     React.useEffect(() => {
         (async () => {
 
-            if (props.token_sessao_usuario) {
-                setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
-                Router.push("/cadastro/avatar");
-            }
+            Router.push("/menu");
 
         })()
     }, [])

@@ -32,6 +32,9 @@ export default async function apiPublicaUsuarioCriar(req, res) {
       if (!dados.slug) {
         dados.slug = criarSlug(dados.nome);
       }
+      if (dados.senha) {
+        dados.senha = bcryptjs.hashSync(dados.senha, bcryptjs.genSaltSync(10));
+      }
 
 
       let resBancoDeDados = await Usuario.create(dados);

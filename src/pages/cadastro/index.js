@@ -39,7 +39,7 @@ export async function getServerSideProps(context) {
 
 }
 
-export default function PagesCadastroNome(props) {
+export default function PagesCadastro(props) {
 
 
     React.useEffect(() => {
@@ -66,6 +66,9 @@ export default function PagesCadastroNome(props) {
                     <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
                         <InputPrincipal titulo="Qual seu e-mail?" name="email" type="email">
                             Digite o seu endereço de e-mail
+                        </InputPrincipal>
+                        <InputPrincipal titulo="Senha" name="senha" type="password">
+                            Digite a senha
                         </InputPrincipal>
                         <InputPrincipal titulo="Qual o seu nome?" name="nome">
                             Digite o seu primeiro nome

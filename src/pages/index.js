@@ -35,7 +35,10 @@ export default function PagesInicio(props) {
                     <p class={props?.cssGlobal?.subtituloLogo}>aprendizagem divertida</p>
 
                     <LinkPrincipal link={`/cadastro`}>
-                        Começar
+                        Cadastre-se
+                    </LinkPrincipal>
+                    <LinkPrincipal link={`/logando`}>
+                        Logar-se
                     </LinkPrincipal>
                 </div>
             </>)
