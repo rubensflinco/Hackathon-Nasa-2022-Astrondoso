@@ -12,8 +12,10 @@ export default function Cabecalho(props) {
                     <p class="block w-full text-right text-xl text-white ">{props?.usuarioLogadoDados?.nome}</p>
                     <p class="block w-full text-right text-xl text-white ">{props?.usuarioLogadoDados?.pontos} pts</p>
                 </div>
-                <div>
-                    <img class="block" src={props?.usuarioLogadoDados?.avatar} />
+                <div style={{cursor:"pointer"}}>
+                    <Link href={`/cadastro/avatar`}>
+                        <img class="block" src={props?.usuarioLogadoDados?.avatar} />
+                    </Link>
                 </div>
             </div>
             <p class="block text-[1.04rem] text-white text-center">{props?.tituloPagina}</p>

@@ -81,9 +81,10 @@ export default function PagesMenu(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <Cabecalho tituloPagina="Menu" iconClick={()=>{window.location.href = "/sair"}} icone="fa-solid fa-right-from-bracket text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
+                <Cabecalho tituloPagina="" iconClick={()=>{window.location.href = "/sair"}} icone="fa-solid fa-right-from-bracket text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
 
+                <h2 class="block text-[NaNrem] text-white mb-3" >Destaques</h2>
                 {
                     props?.menus?.map((menu) => (<>
                         {(menu?.posicao === "cima") && (<>
@@ -93,7 +94,7 @@ export default function PagesMenu(props) {
                 }
 
 
-                <h2 class="block text-[NaNrem] text-white mb-3" >Aprenda +</h2>
+                <h2 class="block text-[NaNrem] text-white mb-3 mt-3" >Aprenda +</h2>
                 {
                     props?.artigos?.map((artigo) => (<>
                         <CardPrincipal titulo={artigo?.titulo} descricao={artigo?.subtitulo} img={artigo?.imgIconPathName} link={`/artigo/${artigo?.slug}`} />
@@ -108,7 +109,7 @@ export default function PagesMenu(props) {
                 }
 
 
-                <h2 class="block text-[NaNrem] text-white mb-3" >Explore +</h2>
+                <h2 class="block text-[NaNrem] text-white mb-3 mt-3" >Explore +</h2>
                 {
                     props?.menus?.map((menu) => (<>
                         {(menu?.posicao === "baixo") && (<>
