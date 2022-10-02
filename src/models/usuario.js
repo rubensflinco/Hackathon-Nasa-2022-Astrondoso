@@ -24,11 +24,15 @@ const esquema = new mongoose.Schema({
       message: 'inválida!'
     }
   },
+  senha: {
+    type: String,
+    required: 'é obrigatório!'
+  },
   avatar: {
     type: String,
-    default: '/img/avatar/astrocat.png',
+    default: 'astrocat.png',
     enum: {
-      values: ['/img/avatar/astrocat.png', '/img/avatar/babyet.png'],
+      values: ['astrocat.png', 'babyet.png'],
       message: 'inválido!'
     }
   },

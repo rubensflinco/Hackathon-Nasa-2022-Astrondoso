@@ -1,11 +1,11 @@
 import NextCors from 'nextjs-cors';
-import bcryptjs from 'bcryptjs'
 import apiResponse from "../../../../functions/apiResponse";
 import databaseConnect from "../../../../functions/databaseConnect";
 import validaTokens from "../../../../functions/validaTokens";
 import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
 import jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 
 export default async function apiPublicaUsuarioLogar(req, res) {
   let method = 'POST'
@@ -34,13 +34,14 @@ export default async function apiPublicaUsuarioLogar(req, res) {
 
 
 
-      let resBancoDeDados = await Usuario.findOne({ email: condicoes?.email }, { runValidators: true }).select('+senha');
-
+      let resBancoDeDados = await Usuario.findOne({ email: condicoes?.email }, { runValidators: true }).select('senha email');
       let dadosToken = { id: String(resBancoDeDados?._id) }
       let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
-      
-      return apiResponse(res, 400, "ERRO", "Dados obtidos token do usuario na resposta.", { tokenUsuario: token });
-
+      if (bcryptjs.compareSync(condicoes?.senha, resBancoDeDados?.senha)) {
+        return apiResponse(res, 200, "OK", "Dados obtidos token do usuario na resposta.", { token });
+      } else {
+        throw new Error(`ValidationError: Dados não existe ou senha está inválida.`);
+      }
 
     } catch (error) {
       if (String(error).includes(`email_1 dup key`)) {

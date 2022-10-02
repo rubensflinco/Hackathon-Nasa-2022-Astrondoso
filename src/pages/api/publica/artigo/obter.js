@@ -5,7 +5,7 @@ import Artigo from '../../../../models/artigo';
 import replaceAll from '../../../../functions/replaceAll';
 
 export default async function apiPublicaArtigoObter(req, res) {
-  let method = 'GET'
+  let method = 'PROPFIND'
   
   if (res !== null) {
     await NextCors(req, res, {

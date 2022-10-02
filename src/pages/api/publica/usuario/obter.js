@@ -7,7 +7,7 @@ import absoluteUrl from 'next-absolute-url';
 import '../../../../models/galeria';
 
 export default async function apiPublicaUsuarioObter(req, res) {
-  let method = 'GET'
+  let method = 'PROPFIND'
   
   if (res !== null) {
     await NextCors(req, res, {
@@ -40,10 +40,10 @@ export default async function apiPublicaUsuarioObter(req, res) {
       }
       
 
-      let resBancoDeDados = await Usuario.find(parametrosBusca).populate({ path: "idGaleria" }).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
+      let resBancoDeDados = await Usuario.find(parametrosBusca).sort({ createdAt: 'desc' }).limit(parseInt(condicoes.limite));
       
       await Promise.all(resBancoDeDados.map(function (dados) {
-        dados.idGaleria.imgPathName = `${urlCurrent.origin}/img/${dados.idGaleria.imgPathName}`
+        dados.avatar = `${urlCurrent.origin}/img/avatar/${dados.avatar}`
       }));
       
       return apiResponse(res, 200, "OK", "Dados obtidos e listados na resposta.", resBancoDeDados);

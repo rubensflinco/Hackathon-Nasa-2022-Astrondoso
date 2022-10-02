@@ -7,49 +7,37 @@ import request from '../../functions/request';
 import { setCookies } from 'cookies-next';
 import Router from 'next/router';
 import convertWwwFormInJson from '../../functions/convertWwwFormInJson';
+import deslogarUser from '../../functions/deslogarUser';
 
 
 
 // Função executada no servidor antes da pagina ir para o navegador
 export async function getServerSideProps(context) {
-    let req = context.req;
 
-    if (req.method == "POST") {
-        try {
-            let body = await convertWwwFormInJson(req);
-            let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/criar`, {}, { dados: body });
- 
-            setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
-            
-            return {
-                props: { token_sessao_usuario: respostaApi.token }
-            }
+    try {
 
-        } catch (error) {
-            return {
-                props: { erro: String(error) }
-            }
+        deslogarUser(context);
+
+        return {
+            props: { token_sessao_usuario: respostaApi.token }
         }
 
-    } else {
+    } catch (error) {
         return {
-            redirect: { destination: '/cadastro', permanent: false }
+            props: { erro: String(error) }
         }
     }
 
 }
 
 
-export default function PagesCadastroAction(props) {
+export default function PagesLogandoAction(props) {
 
 
     React.useEffect(() => {
         (async () => {
 
-            if (props.token_sessao_usuario) {
-                setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
-                Router.push("/cadastro/avatar");
-            }
+            deslogarUser("CLIENTE");
 
         })()
     }, [])
@@ -58,7 +46,7 @@ export default function PagesCadastroAction(props) {
 
     return (<>
         <TituloPagina
-            nome="Cadastrando..."
+            nome="Saindo..."
         />
 
         {(props.carregando) ? (<>

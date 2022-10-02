@@ -13,6 +13,9 @@ export default function App({ Component, pageProps }) {
       if (typeof window !== "undefined") {
         window.addEventListener("loadstart", function () { setCarregando(true); });
         window.addEventListener("loadstop", function () { setCarregando(false); });
+        document.querySelectorAll('img').forEach(function (img) {
+          img.onerror = function () { this.style.display = 'none'; };
+        })
       }
     }
   });

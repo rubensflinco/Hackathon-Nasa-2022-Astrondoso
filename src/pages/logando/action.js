@@ -17,9 +17,9 @@ export async function getServerSideProps(context) {
     if (req.method == "POST") {
         try {
             let body = await convertWwwFormInJson(req);
-            let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/criar`, {}, { dados: body });
+            let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/logar`, {}, { condicoes: body });
  
-            setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
+            await setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
             
             return {
                 props: { token_sessao_usuario: respostaApi.token }
@@ -33,22 +33,24 @@ export async function getServerSideProps(context) {
 
     } else {
         return {
-            redirect: { destination: '/cadastro', permanent: false }
+            redirect: { destination: '/logando', permanent: false }
         }
     }
 
 }
 
 
-export default function PagesCadastroAction(props) {
+export default function PagesLogandoAction(props) {
 
 
     React.useEffect(() => {
         (async () => {
 
             if (props.token_sessao_usuario) {
-                setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
-                Router.push("/cadastro/avatar");
+                await setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
+                setTimeout(() => {
+                    Router.push("/menu");
+                }, 100);
             }
 
         })()
@@ -58,7 +60,7 @@ export default function PagesCadastroAction(props) {
 
     return (<>
         <TituloPagina
-            nome="Cadastrando..."
+            nome="Logando..."
         />
 
         {(props.carregando) ? (<>
