@@ -1,10 +1,5 @@
 import * as React from 'react';
-import LinkPrincipal from '../../components/linkPrincipal';
 import Cabecalho from '../../components/cabecalho';
-import CardAccordion from '../../components/cardAccordion';
-import CardPrincipal from '../../components/cardPrincipal';
-import CardSecundario from '../../components/cardSecundario';
-import InputPrincipal from '../../components/input';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
 
