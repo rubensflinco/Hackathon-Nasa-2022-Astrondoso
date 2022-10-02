@@ -2,6 +2,7 @@ import * as React from 'react';
 import LinkPrincipal from '../../components/linkPrincipal';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
+import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
 
 
 

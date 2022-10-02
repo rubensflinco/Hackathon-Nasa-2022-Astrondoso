@@ -24,6 +24,12 @@
     color: #FFFFFF;
 }
 
+.btnRespostaNeutro {
+    background: linear-gradient(260.22deg, rgba(209, 209, 219, 0.1) 1.09%, rgba(209, 209, 219, 0.1) 66.51%, rgba(209, 209, 219, 0.042) 98.47%);
+    backdrop-filter: blur(6.92139px);
+    border-radius: 13.8428px;
+}
+
 .btnRespostaCorreta {
 
     background: linear-gradient(260.22deg, rgba(5, 247, 0, 0.1) 1.09%, rgba(100, 202, 65, 0.1) 66.51%, rgba(22, 226, 42, 0.042) 98.47%);
