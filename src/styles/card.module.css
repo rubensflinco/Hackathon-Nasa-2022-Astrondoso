@@ -24,7 +24,7 @@
     overflow: hidden;
 }
 .limitImg img{
-    width: 25rem;
-    height: 20rem;
+    width: 25rem!important;
+    height: 20rem!important;
     object-fit: cover;
 }

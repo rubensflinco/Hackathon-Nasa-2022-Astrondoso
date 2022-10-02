@@ -59,12 +59,12 @@ export default function PagesCadastroAvatarAction(props) {
         />
 
         {(props.carregando) ? (<>
-            <Msg icone={(<p>icon carregando</p>)} titulo={`Carregando...`} />
+            <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <Msg icone={(<p>icon carregando</p>)} titulo={`Carregando...`} />
+                <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
             </>)
             }
         </>)

@@ -59,10 +59,10 @@ export default function PagesCadastroAvatar(props) {
         />
 
         {(props.carregando) ? (<>
-            <Msg icone={(<p>icon carregando</p>)} titulo={`Carregando...`} />
+            <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
                 <form action="/cadastro/avatar/action" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">

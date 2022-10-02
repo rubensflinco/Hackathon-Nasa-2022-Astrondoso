@@ -23,7 +23,7 @@ export default function Pages404(props) {
     />
 
     <Msg 
-    icone={(<>Icone de erro</>)} 
+    icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} 
     titulo={`404`} 
     descricao={`Pagina não encontrada`} 
     btnInicio={true}
