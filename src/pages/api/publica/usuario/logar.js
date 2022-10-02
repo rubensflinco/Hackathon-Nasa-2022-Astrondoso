@@ -5,6 +5,7 @@ import validaTokens from "../../../../functions/validaTokens";
 import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
 import jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 
 export default async function apiPublicaUsuarioLogar(req, res) {
   let method = 'POST'

@@ -5,6 +5,7 @@ import databaseConnect from "../../../../functions/databaseConnect";
 import Usuario from '../../../../models/usuario';
 import replaceAll from '../../../../functions/replaceAll';
 import jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 
 export default async function apiPublicaUsuarioCriar(req, res) {
   let method = 'POST'

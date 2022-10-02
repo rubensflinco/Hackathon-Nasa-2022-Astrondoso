@@ -1,4 +1,6 @@
 import * as React from 'react';
+import BtnPrincipal from '../../components/btnPrincipal';
+import InputPrincipal from '../../components/input';
 import LinkPrincipal from '../../components/linkPrincipal';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
