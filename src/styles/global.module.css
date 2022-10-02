@@ -52,3 +52,21 @@
     backdrop-filter: blur(6.92139px);
     border-radius: 13.8428px;
 }
+
+.container3D{
+    width: 80vw;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container3D canvas:nth-child(1){
+    display: none;
+}
+
+.container3D canvas{
+    border-radius: 5rem;
+}
