@@ -11,7 +11,7 @@ export default async function request(metodo, url,  headers = {}, body = {}) {
         var requestOptions = {
             method: metodo,
             headers: myHeaders,
-            body: JSON.stringify(body),
+            body: JSON?.stringify(body),
             redirect: 'follow'
         };
 

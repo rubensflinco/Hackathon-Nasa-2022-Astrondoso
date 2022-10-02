@@ -7,7 +7,7 @@ import absoluteUrl from 'next-absolute-url';
 import '../../../../models/galeria';
 
 export default async function apiPublicaPerguntasObter(req, res) {
-  let method = 'GET'
+  let method = 'PROPFIND'
   
   if (res !== null) {
     await NextCors(req, res, {
