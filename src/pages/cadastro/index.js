@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BtnPrincipal from '../../components/btnPrincipal';
 import InputPrincipal from '../../components/input';
+import LinkSecundario from '../../components/linkSecundario';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
 import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
@@ -64,19 +65,23 @@ export default function PagesCadastro(props) {
             </>) : (<>
                 <form action="/cadastro/action" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+
+                        <InputPrincipal titulo="Qual o seu nome?" name="nome">
+                            Digite o seu primeiro nome
+                        </InputPrincipal>
                         <InputPrincipal titulo="Qual seu e-mail?" name="email" type="email">
                             Digite o seu endereço de e-mail
                         </InputPrincipal>
                         <InputPrincipal titulo="Senha" name="senha" type="password">
                             Digite a senha
                         </InputPrincipal>
-                        <InputPrincipal titulo="Qual o seu nome?" name="nome">
-                            Digite o seu primeiro nome
-                        </InputPrincipal>
 
                         <BtnPrincipal type="submit">
                             Próximo
                         </BtnPrincipal>
+                        <LinkSecundario link={`/logando`}>
+                            Já tem conta? Logar-se
+                        </LinkSecundario>
                     </div>
                 </form>
             </>)

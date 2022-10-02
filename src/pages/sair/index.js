@@ -7,33 +7,24 @@ import request from '../../functions/request';
 import { setCookies } from 'cookies-next';
 import Router from 'next/router';
 import convertWwwFormInJson from '../../functions/convertWwwFormInJson';
+import deslogarUser from '../../functions/deslogarUser';
 
 
 
 // Função executada no servidor antes da pagina ir para o navegador
 export async function getServerSideProps(context) {
-    let req = context.req;
 
-    if (req.method == "POST") {
-        try {
-            let body = await convertWwwFormInJson(req);
-            let respostaApi = await request("POST", `${process.env.API_PUBLICA_BASE_URL}/usuario/logar`, {}, { condicoes: body });
- 
-            await setCookies('token_sessao_usuario', respostaApi.token, { secure: true, httpOnly: true, overwrite: true, req: context.req, res: context.res });
-            
-            return {
-                props: { token_sessao_usuario: respostaApi.token }
-            }
+    try {
 
-        } catch (error) {
-            return {
-                props: { erro: String(error) }
-            }
+        deslogarUser(context);
+
+        return {
+            props: { token_sessao_usuario: respostaApi.token }
         }
 
-    } else {
+    } catch (error) {
         return {
-            redirect: { destination: '/logando', permanent: false }
+            props: { erro: String(error) }
         }
     }
 
@@ -46,12 +37,7 @@ export default function PagesLogandoAction(props) {
     React.useEffect(() => {
         (async () => {
 
-            if (props.token_sessao_usuario) {
-                await setCookies('token_sessao_usuario_cliente', props.token_sessao_usuario, { secure: true, overwrite: true });
-                setTimeout(() => {
-                    Router.push("/menu");
-                }, 100);
-            }
+            deslogarUser("CLIENTE");
 
         })()
     }, [])
@@ -60,7 +46,7 @@ export default function PagesLogandoAction(props) {
 
     return (<>
         <TituloPagina
-            nome="Logando..."
+            nome="Saindo..."
         />
 
         {(props.carregando) ? (<>

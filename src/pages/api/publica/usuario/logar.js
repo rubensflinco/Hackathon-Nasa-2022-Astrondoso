@@ -34,12 +34,11 @@ export default async function apiPublicaUsuarioLogar(req, res) {
 
 
 
-      let resBancoDeDados = await Usuario.findOne({ email: condicoes?.email }, { runValidators: true }).select('+senha');
-
+      let resBancoDeDados = await Usuario.findOne({ email: condicoes?.email }, { runValidators: true }).select('senha email');
       let dadosToken = { id: String(resBancoDeDados?._id) }
       let token = jwt.sign(dadosToken, String(process.env.JWT_CHAVE_PRIVADA_TOKEN_USUARIO), { expiresIn: '7d' });
       if (bcryptjs.compareSync(condicoes?.senha, resBancoDeDados?.senha)) {
-        return apiResponse(res, 400, "ERRO", "Dados obtidos token do usuario na resposta.", { tokenUsuario: token });
+        return apiResponse(res, 200, "OK", "Dados obtidos token do usuario na resposta.", { token });
       } else {
         throw new Error(`ValidationError: Dados não existe ou senha está inválida.`);
       }

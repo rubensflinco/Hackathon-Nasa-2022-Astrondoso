@@ -18,8 +18,8 @@ export default async function getUsuarioPorTokenCookies(context) {
 
 
             } catch (error) {
-                console.error(error);
-                deslogarUser(context);
+                console.error("error", error);
+                // deslogarUser(context);
                 reject(error);
             }
         } else {
@@ -36,8 +36,8 @@ export default async function getUsuarioPorTokenCookies(context) {
 
 
             } catch (error) {
-                console.error(error);
-                deslogarUser(context);
+                console.error("error", error);
+                // deslogarUser(context);
                 reject(error);
             }
         }

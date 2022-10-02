@@ -24,6 +24,10 @@ const esquema = new mongoose.Schema({
       message: 'inválida!'
     }
   },
+  senha: {
+    type: String,
+    required: 'é obrigatório!'
+  },
   avatar: {
     type: String,
     default: 'astrocat.png',

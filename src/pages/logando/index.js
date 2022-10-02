@@ -2,6 +2,7 @@ import * as React from 'react';
 import BtnPrincipal from '../../components/btnPrincipal';
 import InputPrincipal from '../../components/input';
 import LinkPrincipal from '../../components/linkPrincipal';
+import LinkSecundario from '../../components/linkSecundario';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
 import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
@@ -55,7 +56,7 @@ export default function PagesLogando(props) {
 
     return (<>
         <TituloPagina
-            nome="Logando"
+            nome="Logar-se"
         />
 
         {(props.carregando) ? (<>
@@ -76,6 +77,9 @@ export default function PagesLogando(props) {
                         <BtnPrincipal type="submit">
                             Próximo
                         </BtnPrincipal>
+                        <LinkSecundario link={`/cadastro`}>
+                            Ainda não tem conta? Cadastre-se
+                        </LinkSecundario>
                     </div>
                 </form>
             </>)

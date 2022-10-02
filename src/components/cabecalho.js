@@ -18,6 +18,6 @@ export default function Cabecalho(props) {
             </div>
             <p class="block text-[1.04rem] text-white text-center">{props?.tituloPagina}</p>
         </div>
-
+        <div style={{marginBottom: "10rem"}}></div>
     </>)
 }

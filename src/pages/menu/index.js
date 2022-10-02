@@ -3,6 +3,7 @@ import Cabecalho from '../../components/cabecalho';
 import CardPrincipal from '../../components/cardPrincipal';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
+import deslogarUser from '../../functions/deslogarUser';
 import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
 import request from '../../functions/request';
 
@@ -16,19 +17,25 @@ export async function getServerSideProps(context) {
     // [INICIO] checando se o usuario esta autenticado
     try {
         let usuarioLogado = await getUsuarioPorTokenCookies(context);
+        console.log("🚀 ~ file: index.js ~ line 20 ~ getServerSideProps ~ usuarioLogado", usuarioLogado)
         if (usuarioLogado?.token) {
             let usuarioLogadoDados = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/usuario/obter`, {}, { condicoes: { limite: 1, _id: usuarioLogado?.id } });
             let menus = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/menu/obter`, {}, { condicoes: { limite: 99 } });
             let artigos = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/artigo/obter`, {}, { condicoes: { limite: 10 } });
 
+            // if(!usuarioLogadoDados?.[0]?.nome){
+            //     deslogarUser(context);
+            // }
+
             return {
                 props: {
-                    usuarioLogadoDados: usuarioLogadoDados?.[0],
+                    usuarioLogadoDados: usuarioLogadoDados?.[0] || null,
                     menus,
                     artigos
                 }
             }
         } else {
+            // deslogarUser(context);
             return {
                 redirect: {
                     destination: '/logando', permanent: false
@@ -49,12 +56,15 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesInicio(props) {
+export default function PagesMenu(props) {
 
 
     React.useEffect(() => {
         (async () => {
 
+            if(!props?.usuarioLogadoDados?._id){
+                deslogarUser("CLIENTE");
+            }
 
         })()
     }, [])
@@ -63,7 +73,7 @@ export default function PagesInicio(props) {
 
     return (<>
         <TituloPagina
-            nome="Escolha o seu avatar"
+            nome="Menu"
         />
 
         {(props.carregando) ? (<>
