@@ -4,6 +4,7 @@ import CardPrincipal from '../../components/cardPrincipal';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
 import deslogarUser from '../../functions/deslogarUser';
+import encontrarEtapasDoQuiz from '../../functions/encontrarEtapasDoQuiz';
 import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
 import request from '../../functions/request';
 
@@ -19,10 +20,11 @@ export async function getServerSideProps(context) {
         let usuarioLogado = await getUsuarioPorTokenCookies(context);
         if (usuarioLogado?.token) {
             let perguntas = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/perguntas/obter`, {}, { condicoes: { limite: 99 } });
+            let etapasQuiz = await encontrarEtapasDoQuiz(perguntas);
 
             return {
-                props: {
-                    perguntas
+                redirect: {
+                    destination: `/quiz/${etapasQuiz?.primeiroPergunta}`, permanent: false
                 }
             }
         } else {
@@ -53,7 +55,6 @@ export default function PagesQuiz(props) {
     React.useEffect(() => {
         (async () => {
 
-            console.log("perguntas", props?.perguntas)
 
         })()
     }, [])

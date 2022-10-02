@@ -4,7 +4,7 @@ import cssBtn from '../styles/btn.module.css'
 export default function LinkPrincipal(props) {
     return (<>
         <Link href={props?.link}>
-            <a class={cssBtn?.container}>
+            <a className={`${cssBtn?.container} ${props?.className}`}>
                 <p class={cssBtn?.texto}>{props?.children}</p>
             </a>
         </Link>

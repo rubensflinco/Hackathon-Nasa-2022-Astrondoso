@@ -1,20 +1,16 @@
+import Router from 'next/router';
 import * as React from 'react';
-import Cabecalho from '../../components/cabecalho';
-import Msg from '../../components/msg';
-import TituloPagina from '../../components/titulo-pagina';
-import dynamic from 'next/dynamic';
-import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
-import deslogarUser from '../../functions/deslogarUser';
-import request from '../../functions/request';
-const AmbientLight = dynamic(() =>
-    import('react-3d-viewer').then((mod) => mod.AmbientLight), { ssr: false }
-)
-const GLTFModel = dynamic(() =>
-    import('react-3d-viewer').then((mod) => mod.GLTFModel), { ssr: false }
-)
-const DirectionLight = dynamic(() =>
-    import('react-3d-viewer').then((mod) => mod.DirectionLight), { ssr: false }
-)
+import BtnResposta from '../../../components/btnRespostas';
+import Cabecalho from '../../../components/cabecalho';
+import CardQuiz from '../../../components/cardQuiz';
+import LinkPrincipal from '../../../components/linkPrincipal';
+import Msg from '../../../components/msg';
+import TituloPagina from '../../../components/titulo-pagina';
+import deslogarUser from '../../../functions/deslogarUser';
+import encontrarEtapasDoQuiz from '../../../functions/encontrarEtapasDoQuiz';
+import getUsuarioPorTokenCookies from '../../../functions/getUsuarioPorTokenCookies';
+import request from '../../../functions/request';
+
 
 
 
@@ -27,13 +23,16 @@ export async function getServerSideProps(context) {
         let usuarioLogado = await getUsuarioPorTokenCookies(context);
         if (usuarioLogado?.token) {
             let usuarioLogadoDados = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/usuario/obter`, {}, { condicoes: { limite: 1, _id: usuarioLogado?.id } });
+            let pergunta = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/perguntas/obter`, {}, { condicoes: { limite: 1, _id: context.params.idPergunta } });
 
-            if(!usuarioLogadoDados?.[0]?._id){
+
+            if (!usuarioLogadoDados?.[0]?._id) {
                 deslogarUser(context);
             }
 
             return {
                 props: {
+                    pergunta: pergunta?.[0] || {},
                     usuarioLogadoDados: usuarioLogadoDados?.[0] || null,
                 }
             }
@@ -59,9 +58,8 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function PagesJames3D(props) {
+export default function PagesQuizPergunta(props) {
 
-    let [rotation, setRotation] = React.useState({ x: 0, y: 0, z: 0 });
 
     React.useEffect(() => {
         (async () => {
@@ -73,18 +71,10 @@ export default function PagesJames3D(props) {
         })()
     }, [])
 
-    React.useEffect(() => {
-        setInterval(() => {
-            rotation.y += 0.005;
-            setRotation(rotation);
-        }, 30);
-    })
-
-
 
     return (<>
         <TituloPagina
-            nome="James Webb 3D"
+            nome="James Quiz"
         />
 
         {(props.carregando) ? (<>
@@ -93,14 +83,17 @@ export default function PagesJames3D(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <Cabecalho tituloPagina="James Webb 3D" iconClick={() => { window.history.back() }} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
+                <Cabecalho tituloPagina="James Quiz" iconClick={() => { Router.push(`/menu`) }} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
-                <div className={props?.cssGlobal?.container3D}>
-                    <GLTFModel src="/james3d.gltf" rotation={rotation}>
-                        <AmbientLight color={0xffffff} />
-                        <DirectionLight color={0xffffff} position={{ x: 100, y: 200, z: 100 }} />
-                        <DirectionLight color={0xff00ff} position={{ x: -100, y: 200, z: -100 }} />
-                    </GLTFModel>
+
+                <div class="w-[24.38rem] mx-auto">
+                    <CardQuiz titulo={props?.pergunta?.titulo} conteudo={props?.pergunta?.subTitulo} img={(props?.pergunta?.idGaleria?.imgPathName) && props?.pergunta?.idGaleria?.imgUrl}>
+                        {
+                            props?.pergunta?.opcoes?.map((opcao) => (<>
+                                <BtnResposta onClick={()=>{Router.push(`/quiz/${props?.pergunta?._id}/validar/${opcao?._id}`)}} descricao={opcao?.titulo} />
+                            </>))
+                        }
+                    </CardQuiz>
                 </div>
 
             </>)
