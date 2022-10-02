@@ -1,12 +1,11 @@
 import * as React from 'react';
-import LinkPrincipal from '../../components/linkPrincipal';
 import Cabecalho from '../../components/cabecalho';
 import CardAccordion from '../../components/cardAccordion';
-import CardPrincipal from '../../components/cardPrincipal';
-import CardSecundario from '../../components/cardSecundario';
-import InputPrincipal from '../../components/input';
 import Msg from '../../components/msg';
 import TituloPagina from '../../components/titulo-pagina';
+import deslogarUser from '../../functions/deslogarUser';
+import getUsuarioPorTokenCookies from '../../functions/getUsuarioPorTokenCookies';
+import request from '../../functions/request';
 
 
 
@@ -14,19 +13,41 @@ import TituloPagina from '../../components/titulo-pagina';
 
 // Função executada quando no servidor sempre que tem uma nova requisição
 export async function getServerSideProps(context) {
+
+
+    // [INICIO] checando se o usuario esta autenticado
     try {
-        
-        // context.params.slug;
+        let usuarioLogado = await getUsuarioPorTokenCookies(context);
+        if (usuarioLogado?.token) {
+            let usuarioLogadoDados = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/usuario/obter`, {}, { condicoes: { limite: 1, _id: usuarioLogado?.id } });
+            let artigos = await request("PROPFIND", `${process.env.API_PUBLICA_BASE_URL}/artigo/obter`, {}, { condicoes: { limite: 1, slug: context?.params?.slug } });
 
+            if(!usuarioLogadoDados?.[0]?._id){
+                deslogarUser(context);
+            }
+            if(!artigos?.[0]?._id){
+                return {
+                    redirect: {
+                        destination: '/404', permanent: false
+                    }
+                }
+            }
 
-        return {
-            props: {
-
+            return {
+                props: {
+                    usuarioLogadoDados: usuarioLogadoDados?.[0] || null,
+                    artigo: artigos?.[0] || {},
+                }
+            }
+        } else {
+            deslogarUser(context);
+            return {
+                redirect: {
+                    destination: '/logando', permanent: false
+                }
             }
         }
-
     } catch (error) {
-
         return {
             props: {
                 erro: String(error)
@@ -34,24 +55,29 @@ export async function getServerSideProps(context) {
         }
 
     }
+    // [FIM] checando se o usuario esta autenticado
+
+
 }
 
 
-export default function PagesArtigo(props) {
+export default function PagesMenu(props) {
 
 
     React.useEffect(() => {
         (async () => {
 
+            if(!props?.usuarioLogadoDados?._id){
+                deslogarUser("CLIENTE");
+            }
 
         })()
     }, [])
 
 
-
     return (<>
         <TituloPagina
-            nome="Artigos"
+            nome={`Artigo ${ props?.artigo?.titulo || ""}`}
         />
 
         {(props.carregando) ? (<>
@@ -60,28 +86,15 @@ export default function PagesArtigo(props) {
             {(props.erro) ? (<>
                 <Msg icone={(<p>icon erro</p>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <div class="flex flex-col gap-[0.94rem] justify-start items-center max-w-[24.38rem] mx-auto p-5">
-
-                    <Cabecalho tituloPagina="Sobre Webb" icone="fa-solid fa-angle-left fa-1x text-white">
-
-                    </Cabecalho>
+                <Cabecalho tituloPagina={props?.artigo?.titulo || ""} iconClick={()=>{window.history.back()}} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
+                <p>{props?.artigo?.subtitulo}</p>
 
 
-                </div>
-
-                
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-                <CardAccordion titulo="Objetivo da Missão" conteudo="lorem ipsum"/>
-
-
+                {
+                    props?.artigo?.secoes?.map((secao)=>(<>
+                        <CardAccordion titulo={secao?.titulo} conteudo={secao?.conteudo}/>
+                    </>))
+                }
 
             
 
