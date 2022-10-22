@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "james.webb.quiz.planetsgames.com.br",
+                     "sha256_cert_fingerprints": ["39:D0:B9:48:04:EE:D2:C2:59:4B:1A:8C:22:2C:B9:A0:27:9C:C8:D0:03:59:B2:C1:CD:DB:19:54:2A:01:69:81"] }
+      }
+]
