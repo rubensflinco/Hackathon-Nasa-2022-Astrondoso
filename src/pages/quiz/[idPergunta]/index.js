@@ -86,7 +86,7 @@ export default function PagesQuizPergunta(props) {
                 <Cabecalho tituloPagina="James Quiz" iconClick={() => { Router.push(`/menu`) }} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
 
-                <div class="w-[24.38rem] mx-auto">
+                <div class="w-100 mx-auto">
                     <CardQuiz titulo={props?.pergunta?.titulo} conteudo={props?.pergunta?.subTitulo} img={(props?.pergunta?.idGaleria?.imgPathName) && props?.pergunta?.idGaleria?.imgUrl}>
                         {
                             props?.pergunta?.opcoes?.map((opcao) => (<>
