@@ -9,14 +9,15 @@ export default function App({ Component, pageProps }) {
 
 
   React.useEffect(() => {
-    if (Router.isFallback === false) {
-      if (typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
+      if (Router.isFallback === false) {
         window.addEventListener("loadstart", function () { setCarregando(true); });
         window.addEventListener("loadstop", function () { setCarregando(false); });
-        document.querySelectorAll('img').forEach(function (img) {
-          img.onerror = function () { this.style.display = 'none'; };
-        })
       }
+      window.addEventListener("beforeunload", function () { setCarregando(true); });
+      document.querySelectorAll('img').forEach(function (img) {
+        img.onerror = function () { this.style.display = 'none'; };
+      });
     }
   });
 
