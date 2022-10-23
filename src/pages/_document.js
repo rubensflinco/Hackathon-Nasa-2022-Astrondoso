@@ -6,6 +6,8 @@ export default function Document() {
       <Head>
         <meta name="description" content="Neste aplicativo amigável aprenda sobre o telescópio James Webb e astronomia, e pratique seus conhecimentos com um mini-jogo de quiz" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png"/>
+        <meta name="theme-color" content="#111111" />
         <link rel="manifest" href="/manifest.json" />
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />

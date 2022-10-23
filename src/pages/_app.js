@@ -32,12 +32,6 @@ export default function App({ Component, pageProps }) {
     }
   }, [Router]);
 
-  React.useEffect(() => {
-    if (typeof navigator.serviceWorker !== 'undefined') {
-      navigator.serviceWorker.register('pwabuilder-sw.js')
-    }
-  }, []);
-
 
   return (<>
     <div className={cssGlobal.fundoEscuro}>
