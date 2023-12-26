@@ -2,6 +2,7 @@ import * as React from 'react'
 import cssGlobal from '../styles/global.module.css'
 import Router from 'next/router'
 import Head from 'next/head';
+import Script from 'next/script';
 
 
 export default function App({ Component, pageProps }) {
