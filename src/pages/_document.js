@@ -19,22 +19,8 @@ export default function Document() {
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossOrigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossOrigin="anonymous"></script>
         <script src="https://cdn.tailwindcss.com"></script>
-
-
-        <Script id="google-tag-manager">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-WQPVCXV8');
-          `}
-        </Script>
       </Head>
       <body>
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQPVCXV8"
-        height="0" width="0" style={{display:"none",visibility:"hidden"}}></iframe></noscript>
-          
         <Main />
         <NextScript />
       </body>
