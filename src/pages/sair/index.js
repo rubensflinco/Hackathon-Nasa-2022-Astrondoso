@@ -53,7 +53,7 @@ export default function PagesLogandoAction(props) {
             <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i className="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
                 <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
             </>)

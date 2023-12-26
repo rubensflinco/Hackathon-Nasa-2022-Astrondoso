@@ -108,12 +108,12 @@ export default function PagesQuizPergunta(props) {
             <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnInicio={true} descricao={props.erro} />
+                <Msg icone={(<i className="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnInicio={true} descricao={props.erro} />
             </>) : (<>
                 <Cabecalho tituloPagina="James Quiz" iconClick={() => { Router.push(`/menu`) }} icone="fa-solid fa-angle-left fa-1x text-white" usuarioLogadoDados={props?.usuarioLogadoDados} />
 
 
-                <div class="w-100 mx-auto">
+                <div className="w-100 mx-auto">
                     <CardQuiz titulo={props?.pergunta?.titulo} acertou={props?.acertou} conteudo={props?.pergunta?.subTitulo} img={(props?.pergunta?.idGaleria?.imgPathName) && props?.pergunta?.idGaleria?.imgUrl}>
                         {
                             props?.pergunta?.opcoes?.map((opcao) => (<>

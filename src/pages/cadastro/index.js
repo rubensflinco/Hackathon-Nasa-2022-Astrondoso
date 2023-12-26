@@ -61,10 +61,10 @@ export default function PagesCadastro(props) {
             <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i className="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
                 <form action="/cadastro/action" method="POST" enctype="application/x-www-form-urlencoded">
-                    <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+                    <div className="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
 
                         <InputPrincipal titulo="Qual o seu nome?" name="nome">
                             Digite o seu primeiro nome

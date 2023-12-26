@@ -62,21 +62,21 @@ export default function PagesCadastroAvatar(props) {
             <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i className="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
                 <form action="/cadastro/avatar/action" method="POST" enctype="application/x-www-form-urlencoded">
-                    <div class="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
-                        <p class="block w-full text-center text-xl text-white ">Escolha o seu avatar</p>
-                        <div class="flex flex-col gap-[-1.25rem] justify-center items-center w-full">
+                    <div className="flex flex-col gap-[0.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+                        <p className="block w-full text-center text-xl text-white ">Escolha o seu avatar</p>
+                        <div className="flex flex-col gap-[-1.25rem] justify-center items-center w-full">
 
                             <input value={avatar} name="avatar" type="hidden" />
 
                             <button type="button" onClick={() => { setAvatar("babyet.png") }}>
-                                <img class={`block selecionado-${(avatar === "babyet.png")}`} src="/img/avatar/babyet.png" />
+                                <img className={`block selecionado-${(avatar === "babyet.png")}`} src="/img/avatar/babyet.png" />
                             </button>
 
                             <button type="button" onClick={() => { setAvatar("astrocat.png") }}>
-                                <img class={`block selecionado-${(avatar === "astrocat.png")}`} src="/img/avatar/astrocat.png" />
+                                <img className={`block selecionado-${(avatar === "astrocat.png")}`} src="/img/avatar/astrocat.png" />
                             </button>
 
                         </div>

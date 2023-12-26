@@ -63,12 +63,12 @@ export default function PagesInicio(props) {
             <Msg icone={(<i className="spinner-grow text-secondary"></i>)} titulo={`Carregando...`} />
         </>) : (<>
             {(props.erro) ? (<>
-                <Msg icone={(<i class="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
+                <Msg icone={(<i className="fa-regular fa-circle-xmark fa-2x"></i>)} titulo={`Erro`} btnTentarNovamente={true} descricao={props.erro} />
             </>) : (<>
-                <div class="flex flex-col gap-[1.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
-                    <img class="block" src="/img/logo-james-webb.png" />
-                    <p class={props?.cssGlobal?.tituloLogo}>james webb</p>
-                    <p class={props?.cssGlobal?.subTituloLogo}>aprendizagem divertida</p>
+                <div className="flex flex-col gap-[1.94rem] justify-center items-center max-w-[24.38rem] mx-auto p-5">
+                    <img className="block" src="/img/logo-james-webb.png" />
+                    <p className={props?.cssGlobal?.tituloLogo}>james webb</p>
+                    <p className={props?.cssGlobal?.subTituloLogo}>aprendizagem divertida</p>
 
                     <LinkPrincipal link={`/cadastro`}>
                         Cadastre-se
